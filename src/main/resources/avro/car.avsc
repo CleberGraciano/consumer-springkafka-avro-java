@@ -1,0 +1,24 @@
+{
+    "type": "record",
+    "name": "Car",
+    "namespace": "br.com.springkafka",
+    "fields": [
+        {
+            "name": "id",
+            "type": "string"
+        },
+        {
+            "name": "name",
+            "type": "string"
+        },
+        {
+            "name": "model",
+            "type": "string"
+        },
+        {
+            "name": "brand",
+            "type": "string"
+        }
+    ]
+
+}
