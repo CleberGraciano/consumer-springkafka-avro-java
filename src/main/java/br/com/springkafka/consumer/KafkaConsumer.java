@@ -3,6 +3,7 @@ package br.com.springkafka.consumer;
 import br.com.springkafka.Car;
 import br.com.springkafka.People;
 import br.com.springkafka.domain.Book;
+import br.com.springkafka.repositories.CarRepository;
 import br.com.springkafka.repositories.PeopleRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class KafkaConsumer {
 
     private final PeopleRepository peopleRepository;
+    private final CarRepository carRepository;
 
     @KafkaHandler(isDefault = false)
     public void consumer(People people, Acknowledgment ack){
@@ -45,6 +47,15 @@ public class KafkaConsumer {
 
     @KafkaHandler(isDefault = false)
     public void consumerCar(Car car, Acknowledgment ack) {
+
+        var carEntity = br.com.springkafka.domain.Car.builder().build();
+
+        carEntity.setId(car.getId().toString());
+        carEntity.setName(car.getName().toString());
+        carEntity.setModel(car.getModel().toString());
+        carEntity.setBrand(car.getBrand().toString());
+
+        carRepository.save(carEntity);
 
         log.info("Message consumida!!"+car);
         ack.acknowledge();
