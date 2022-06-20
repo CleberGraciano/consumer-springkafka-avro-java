@@ -22,9 +22,9 @@ public class KafkaConsumer {
 
     private final PeopleRepository peopleRepository;
 
-    @KafkaHandler
-    public void consumer(ConsumerRecord<String, People> record, Acknowledgment ack){
-        var people = record.value();
+    @KafkaHandler(isDefault = false)
+    public void consumer(People people, Acknowledgment ack){
+
 
         log.info(people.toString());
 
@@ -43,7 +43,7 @@ public class KafkaConsumer {
         ack.acknowledge();
     }
 
-    @KafkaHandler
+    @KafkaHandler(isDefault = false)
     public void consumerCar(Car car, Acknowledgment ack) {
 
         log.info("Message consumida!!"+car);
