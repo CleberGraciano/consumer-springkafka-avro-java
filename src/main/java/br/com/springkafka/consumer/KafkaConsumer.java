@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Component
 @AllArgsConstructor
 @KafkaListener(topics = "${topic.name}")
-public class CarConsumer {
+public class KafkaConsumer {
 
     private final PeopleRepository peopleRepository;
 
@@ -50,7 +50,7 @@ public class CarConsumer {
         ack.acknowledge();
     }
 
-    @KafkaHandler
+    @KafkaHandler(isDefault = true)
     public void consumerObject(Object object, Acknowledgment ack) {
         log.info("Message falha!!"+object);
         ack.acknowledge();
